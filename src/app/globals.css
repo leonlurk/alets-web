@@ -1,26 +1,77 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+/* Variables básicas */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --popover: 240 10% 3.9%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 252 87% 54%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 217 76% 53%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  --accent: 191 97% 47%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  --ring: 240 4.9% 83.9%;
+  --radius: 0.5rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Estilos directos */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: black;
+  color: white;
+}
+
+/* Utilidades */
+.text-edge-outline {
+  -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+}
+
+.mask-radial-faded {
+  mask-image: radial-gradient(circle at center center, black, transparent 80%);
+}
+
+.mask-linear-faded {
+  mask-image: linear-gradient(black, transparent 70%);
+}
+
+.mask-linear {
+  mask-image: linear-gradient(rgba(0, 0, 0, 1.0), transparent);
+}
+
+.mask-linear-vertical {
+  mask-image: linear-gradient(to right, rgba(0, 0, 0, 1.0), transparent);
+}
+
+.perspective {
+  perspective: 1000px;
+}
+
+/* Componentes */
+.glow-text {
+  text-shadow: 0 0 10px rgba(120, 0, 255, 0.5), 0 0 20px rgba(120, 0, 255, 0.3), 0 0 30px rgba(120, 0, 255, 0.1);
+}
+
+.cosmic-glow {
+  box-shadow: 0 0 50px -12px rgba(120, 0, 255, 0.5);
+}
+
+.custom-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.smooth-scroll {
+  scroll-behavior: smooth;
 }
