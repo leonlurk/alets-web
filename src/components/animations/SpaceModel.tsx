@@ -70,9 +70,7 @@ function FloatingParticles() {
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
-          count={1000}
-          array={new Float32Array(3000).map(() => MathUtils.randFloatSpread(10))}
-          itemSize={3}
+          args={[new Float32Array(3000).map(() => MathUtils.randFloatSpread(10)), 3]}
         />
       </bufferGeometry>
       <pointsMaterial size={0.05} color={new Color('#6C00FF')} />
