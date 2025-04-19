@@ -3,14 +3,14 @@
 import { useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Stars, PerspectiveCamera, OrbitControls } from '@react-three/drei'
-import { Color, MathUtils } from 'three'
+import { Color, MathUtils, Mesh, Points } from 'three'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
 function SphereMesh({ isMobile = false }) {
-  const meshRef = useRef<THREE.Mesh>(null)
+  const meshRef = useRef<Mesh>(null)
   
   useFrame((state, delta) => {
     if (meshRef.current) {
@@ -33,7 +33,7 @@ function SphereMesh({ isMobile = false }) {
 }
 
 function GlowingRing() {
-  const ringRef = useRef<THREE.Mesh>(null)
+  const ringRef = useRef<Mesh>(null)
   
   useFrame(({ clock }) => {
     if (ringRef.current) {
@@ -57,7 +57,7 @@ function GlowingRing() {
 }
 
 function FloatingParticles() {
-  const particlesRef = useRef<THREE.Points>(null)
+  const particlesRef = useRef<Points>(null)
   
   useFrame(({ clock }) => {
     if (particlesRef.current) {
