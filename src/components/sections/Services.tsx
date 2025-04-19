@@ -121,7 +121,7 @@ export default function Services() {
           {services.map((service, index) => (
             <motion.div
               key={service.id}
-              ref={el => (serviceRefs.current[index] = el)}
+              ref={el => { serviceRefs.current[index] = el; }}
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
