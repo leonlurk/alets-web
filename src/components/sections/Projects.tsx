@@ -4,7 +4,6 @@ import { useRef, useEffect } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import Image from 'next/image'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -125,7 +124,7 @@ export default function Projects() {
         className="relative min-h-[50vh] md:min-h-[80vh] w-full"
       >
         <div className="flex flex-col md:flex-row w-full md:w-[400%]">
-          {projects.map((project, index) => (
+          {projects.map((project) => (
             <div 
               key={project.id}
               className="project-item flex-shrink-0 w-full md:w-screen h-auto md:h-[80vh] px-4 py-8 md:py-0 md:px-0 flex items-center"

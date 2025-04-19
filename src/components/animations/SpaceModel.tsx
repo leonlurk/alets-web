@@ -1,8 +1,8 @@
 'use client'
 
-import { useRef, useEffect } from 'react'
+import { useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Stars, useGLTF, PerspectiveCamera, OrbitControls } from '@react-three/drei'
+import { Stars, PerspectiveCamera, OrbitControls } from '@react-three/drei'
 import { Color, MathUtils } from 'three'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
