@@ -26,24 +26,24 @@ export default function Navbar() {
       }}
       animate={hidden ? "hidden" : "visible"}
       transition={{ duration: 0.35, ease: "easeInOut" }}
-      className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50"
+      className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border/50"
     >
       <div className="container mx-auto flex items-center justify-between p-4">
         <Link href="/" className="text-2xl font-bold text-primary">
-          <span className="glow-text">DevGenius</span>
+          <span className="glow-text">Alets</span>
         </Link>
         
         <div className="hidden md:flex items-center space-x-8">
-          <Link href="#about" className="text-foreground/80 hover:text-primary transition-colors">
+          <Link href="#about" className="text-muted-foreground hover:text-primary transition-colors">
             Nosotros
           </Link>
-          <Link href="#services" className="text-foreground/80 hover:text-primary transition-colors">
+          <Link href="#services" className="text-muted-foreground hover:text-primary transition-colors">
             Servicios
           </Link>
-          <Link href="#projects" className="text-foreground/80 hover:text-primary transition-colors">
+          <Link href="#projects" className="text-muted-foreground hover:text-primary transition-colors">
             Proyectos
           </Link>
-          <Link href="#testimonials" className="text-foreground/80 hover:text-primary transition-colors">
+          <Link href="#testimonials" className="text-muted-foreground hover:text-primary transition-colors">
             Testimonios
           </Link>
           <Link href="#contact" 
@@ -81,28 +81,28 @@ export default function Navbar() {
               <Link 
                 href="#about" 
                 onClick={() => setIsOpen(false)}
-                className="text-foreground/80 hover:text-primary transition-colors px-4 py-2"
+                className="text-muted-foreground hover:text-primary transition-colors px-4 py-2"
               >
                 Nosotros
               </Link>
               <Link 
                 href="#services" 
                 onClick={() => setIsOpen(false)}
-                className="text-foreground/80 hover:text-primary transition-colors px-4 py-2"
+                className="text-muted-foreground hover:text-primary transition-colors px-4 py-2"
               >
                 Servicios
               </Link>
               <Link 
                 href="#projects" 
                 onClick={() => setIsOpen(false)}
-                className="text-foreground/80 hover:text-primary transition-colors px-4 py-2"
+                className="text-muted-foreground hover:text-primary transition-colors px-4 py-2"
               >
                 Proyectos
               </Link>
               <Link 
                 href="#testimonials" 
                 onClick={() => setIsOpen(false)}
-                className="text-foreground/80 hover:text-primary transition-colors px-4 py-2"
+                className="text-muted-foreground hover:text-primary transition-colors px-4 py-2"
               >
                 Testimonios
               </Link>

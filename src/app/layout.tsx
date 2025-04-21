@@ -3,11 +3,14 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import SmoothScroll from '@/components/layout/SmoothScroll'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ 
+  subsets: ['latin'],
+  variable: '--font-inter',
+})
 
 export const metadata: Metadata = {
-  title: 'DevGenius | La Mejor Agencia de Desarrollo de Latinoamérica',
-  description: 'Transformamos ideas en soluciones digitales innovadoras. Especialistas en desarrollo web, móvil y servicios de ingeniería de software.',
+  title: 'Alets | Agencia Líder en Desarrollo de Software en Latinoamérica',
+  description: 'Alets: Creamos software de vanguardia que impulsa el éxito. La agencia de desarrollo líder en Latinoamérica, transformando ideas en realidad digital.',
 }
 
 export default function RootLayout({
@@ -16,8 +19,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="es" className="dark">
-      <body className={inter.className}>
+    <html lang="es">
+      <body className={`${inter.variable} font-sans`}>
         <SmoothScroll>
           {children}
         </SmoothScroll>

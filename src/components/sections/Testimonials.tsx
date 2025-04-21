@@ -10,31 +10,31 @@ gsap.registerPlugin(ScrollTrigger)
 const testimonials = [
   {
     id: 1,
-    name: 'Ana García',
-    position: 'CEO, FinanceHub',
-    comment: 'DevGenius transformó por completo nuestra presencia digital. El equipo entendió perfectamente nuestras necesidades y entregó un producto que superó todas nuestras expectativas.',
-    rating: 5,
+    name: 'Carlos Mendoza',
+    company: 'CEO, BancoDigital',
+    image: '/images/placeholder-avatar.png',
+    comment: 'Alets transformó por completo nuestra presencia digital. El equipo entendió perfectamente nuestras necesidades y entregó un producto que superó todas nuestras expectativas.',
   },
   {
     id: 2,
-    name: 'Carlos Rodríguez',
-    position: 'CTO, TechInnovate',
-    comment: 'La experiencia de trabajar con DevGenius fue excepcional. Su nivel técnico y capacidad para resolver problemas complejos nos permitió lanzar nuestra plataforma en tiempo récord.',
-    rating: 5,
+    name: 'Ana García',
+    company: 'CTO, TravelSmart',
+    image: '/images/placeholder-avatar.png',
+    comment: 'La experiencia de trabajar con Alets fue excepcional. Su nivel técnico y capacidad para resolver problemas complejos nos permitió lanzar nuestra plataforma en tiempo récord.',
   },
   {
     id: 3,
-    name: 'Lucía Martínez',
-    position: 'Director de Marketing, GrowthBrand',
-    comment: 'El equipo de DevGenius no solo desarrolló nuestra aplicación, sino que contribuyó con ideas que mejoraron significativamente la experiencia del usuario. Seguimos trabajando con ellos en nuevos proyectos.',
-    rating: 5,
+    name: 'Javier López',
+    company: 'Product Manager, HealthTrack',
+    image: '/images/placeholder-avatar.png',
+    comment: 'El equipo de Alets no solo desarrolló nuestra aplicación, sino que contribuyó con ideas que mejoraron significativamente la experiencia del usuario. Seguimos trabajando con ellos en nuevos proyectos.',
   },
   {
     id: 4,
-    name: 'Santiago Díaz',
-    position: 'Fundador, EcoStartup',
-    comment: 'Elegir a DevGenius fue la mejor decisión para nuestro negocio. Su enfoque metodológico y la calidad de su trabajo nos permitió escalar rápidamente nuestra plataforma.',
-    rating: 5,
+    name: 'Sofía Martínez',
+    company: 'Directora de Operaciones, EcoTrack',
+    image: '/images/placeholder-avatar.png',
+    comment: 'Elegir a Alets fue la mejor decisión para nuestro negocio. Su enfoque metodológico y la calidad de su trabajo nos permitió escalar rápidamente nuestra plataforma.',
   },
 ]
 
@@ -82,7 +82,7 @@ export default function Testimonials() {
     <section 
       id="testimonials"
       ref={sectionRef}
-      className="relative py-24 md:py-32 overflow-hidden"
+      className="relative py-24 md:py-32 overflow-hidden bg-background"
     >
       {/* Fondo dinámico */}
       <div className="testimonial-bg-gradient absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/5 to-background"></div>
@@ -96,10 +96,10 @@ export default function Testimonials() {
           transition={{ duration: 0.6, ease: [0.165, 0.84, 0.44, 1] }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">
+          <h2 className="text-3xl md:text-5xl font-bold mb-6 text-foreground">
             Lo que <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">Dicen de Nosotros</span>
           </h2>
-          <p className="text-lg text-foreground/70">
+          <p className="text-lg text-muted-foreground">
             La satisfacción de nuestros clientes es nuestra mayor recompensa. 
             Estas son algunas de las opiniones de quienes han confiado en nosotros.
           </p>
@@ -109,7 +109,7 @@ export default function Testimonials() {
           ref={testimonialsRef}
           className="max-w-4xl mx-auto mb-12"
         >
-          <div className="relative perspective bg-background/30 backdrop-blur-md rounded-2xl p-8 md:p-12 border border-white/10 cosmic-glow">
+          <div className="relative perspective bg-card/80 backdrop-blur-md rounded-2xl p-8 md:p-12 border border-border shadow-lg shadow-primary/10">
             <div className="absolute top-4 right-4 flex">
               {[...Array(5)].map((_, i) => (
                 <svg 
@@ -141,10 +141,10 @@ export default function Testimonials() {
                   >
                     <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
                   </svg>
-                  <p className="text-lg md:text-xl mb-8">{testimonials[activeTestimonial].comment}</p>
+                  <p className="text-lg md:text-xl mb-8 text-foreground">{testimonials[activeTestimonial].comment}</p>
                   <div>
-                    <p className="font-bold">{testimonials[activeTestimonial].name}</p>
-                    <p className="text-foreground/60 text-sm">{testimonials[activeTestimonial].position}</p>
+                    <p className="font-bold text-foreground">{testimonials[activeTestimonial].name}</p>
+                    <p className="text-muted-foreground text-sm">{testimonials[activeTestimonial].company}</p>
                   </div>
                 </motion.div>
               </AnimatePresence>
@@ -156,7 +156,7 @@ export default function Testimonials() {
                   key={index}
                   onClick={() => setActiveTestimonial(index)}
                   className={`w-3 h-3 rounded-full transition-colors duration-300 ${
-                    index === activeTestimonial ? 'bg-primary' : 'bg-foreground/20'
+                    index === activeTestimonial ? 'bg-primary' : 'bg-muted'
                   }`}
                   aria-label={`Ver testimonio ${index + 1}`}
                 />
@@ -167,7 +167,7 @@ export default function Testimonials() {
         
         <div className="flex flex-wrap justify-center gap-8 mt-16">
           {['Microsoft', 'Google', 'Amazon', 'Meta', 'Netflix', 'Spotify'].map((brand, index) => (
-            <div key={index} className="text-foreground/40 font-medium text-lg">{brand}</div>
+            <div key={index} className="text-muted-foreground font-medium text-lg">{brand}</div>
           ))}
         </div>
       </div>

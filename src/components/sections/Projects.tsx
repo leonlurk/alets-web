@@ -92,7 +92,7 @@ export default function Projects() {
     <section 
       id="projects" 
       ref={sectionRef}
-      className="relative py-24 md:py-32"
+      className="relative py-24 md:py-32 bg-background"
     >
       <div className="container mx-auto px-4">
         <motion.div
@@ -102,17 +102,17 @@ export default function Projects() {
           transition={{ duration: 0.6, ease: [0.165, 0.84, 0.44, 1] }}
           className="text-center max-w-3xl mx-auto mb-12"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">
-            Nuestros <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">Proyectos</span>
+          <h2 className="text-3xl md:text-5xl font-bold mb-6 text-foreground">
+            Nuestro <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">Portafolio de Innovación</span>
           </h2>
-          <p className="text-lg text-foreground/70">
-            Exploramos los límites de la tecnología para crear experiencias digitales excepcionales.
-            Conoce algunos de nuestros casos de éxito.
+          <p className="text-lg text-muted-foreground">
+            Casos de éxito que demuestran nuestra capacidad para transformar desafíos complejos
+            en soluciones digitales líderes en el mercado.
           </p>
         </motion.div>
         
         <div className="relative mb-8">
-          <div className="w-full h-1 bg-muted/20 rounded-full overflow-hidden">
+          <div className="w-full h-1 bg-muted rounded-full overflow-hidden">
             <div className="progress-bar h-full bg-gradient-to-r from-primary to-secondary w-0"></div>
           </div>
         </div>
@@ -137,23 +137,23 @@ export default function Projects() {
                 className="w-full max-w-6xl mx-auto h-full flex flex-col md:flex-row items-center gap-8 md:gap-16"
               >
                 <div className="w-full md:w-1/2 h-64 md:h-3/4">
-                  <div className="relative w-full h-full rounded-2xl overflow-hidden cosmic-glow">
-                    <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/20 to-secondary/20 border border-white/10 rounded-2xl">
-                      <span className="text-lg text-white/70">Imagen de {project.title}</span>
+                  <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-lg shadow-primary/10">
+                    <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/10 to-secondary/10 border border-border rounded-2xl">
+                      <span className="text-lg text-muted-foreground">Imagen de {project.title}</span>
                     </div>
                   </div>
                 </div>
                 
                 <div className="w-full md:w-1/2 flex flex-col">
                   <span className="text-sm font-medium text-primary mb-2">{project.category}</span>
-                  <h3 className="text-2xl md:text-4xl font-bold mb-4">{project.title}</h3>
-                  <p className="text-lg text-foreground/70 mb-6">{project.description}</p>
+                  <h3 className="text-2xl md:text-4xl font-bold mb-4 text-foreground">{project.title}</h3>
+                  <p className="text-lg text-muted-foreground mb-6">{project.description}</p>
                   
                   <div className="flex flex-wrap gap-2 mb-8">
                     {project.tech.map((tech, idx) => (
                       <span 
                         key={idx}
-                        className="text-xs px-3 py-1 rounded-full bg-muted/20 text-foreground/60"
+                        className="text-xs px-3 py-1 rounded-full bg-muted text-muted-foreground"
                       >
                         {tech}
                       </span>

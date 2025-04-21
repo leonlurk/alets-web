@@ -91,10 +91,10 @@ export default function Services() {
     <section 
       id="services"
       ref={sectionRef}
-      className="relative py-24 md:py-32 overflow-hidden"
+      className="relative py-24 md:py-32 overflow-hidden bg-background"
     >
       {/* Gradiente de fondo */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background"></div>
+      {/* <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background"></div> */}
       
       {/* Elementos decorativos */}
       <div className="absolute top-20 left-10 w-60 h-60 rounded-full bg-primary/5 filter blur-3xl"></div>
@@ -108,12 +108,12 @@ export default function Services() {
           transition={{ duration: 0.6, ease: [0.165, 0.84, 0.44, 1] }}
           className="text-center max-w-3xl mx-auto mb-20"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">
-            Nuestros <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">Servicios</span>
+          <h2 className="text-3xl md:text-5xl font-bold mb-6 text-foreground">
+            Nuestros <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">Servicios de Vanguardia</span>
           </h2>
-          <p className="text-lg text-foreground/70">
-            Ofrecemos una gama completa de soluciones digitales para impulsar tu negocio. 
-            Desde el diseño hasta el despliegue, nos encargamos de todo.
+          <p className="text-lg text-muted-foreground">
+            Dominamos el espectro completo de tecnologías para entregar soluciones digitales integrales y de alto impacto.
+            En Alets, tu visión se convierte en excelencia tecnológica.
           </p>
         </motion.div>
         
@@ -126,20 +126,20 @@ export default function Services() {
               whileInView={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true, amount: 0.3 }}
-              className="service-card group relative bg-background border border-border/50 rounded-xl p-6 hover:border-primary/50 transition-all duration-300 hover:translate-y-[-5px]"
+              className="service-card group relative bg-card border border-border rounded-xl p-6 hover:border-primary transition-all duration-300 hover:-translate-y-1 shadow-lg shadow-primary/5 hover:shadow-primary/10"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
               
               <div className="relative z-10">
-                <div className="text-4xl mb-4">{service.icon}</div>
-                <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">{service.title}</h3>
-                <p className="text-foreground/70 mb-6">{service.description}</p>
+                <div className="text-4xl mb-6">{service.icon}</div>
+                <h3 className="text-xl font-semibold mb-3 text-foreground group-hover:text-primary transition-colors">{service.title}</h3>
+                <p className="text-muted-foreground mb-6">{service.description}</p>
                 
-                <div className="flex flex-wrap gap-2 mt-4">
+                <div className="flex flex-wrap gap-2 mt-auto">
                   {service.technologies.map((tech, idx) => (
                     <span 
                       key={idx}
-                      className="text-xs px-2 py-1 rounded-full bg-background border border-border/50 text-foreground/60"
+                      className="text-xs px-3 py-1 rounded-full bg-muted/50 border border-border/50 text-muted-foreground"
                     >
                       {tech}
                     </span>
@@ -155,7 +155,7 @@ export default function Services() {
             href="#contact"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="inline-block px-8 py-3 bg-primary rounded-full text-white font-medium hover:bg-primary/90 transition-colors cosmic-glow"
+            className="inline-block px-8 py-3 bg-primary rounded-full text-primary-foreground font-medium hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20"
           >
             Consulta nuestros servicios
           </motion.a>

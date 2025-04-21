@@ -55,7 +55,7 @@ export default function About() {
       ref={sectionRef}
       className="relative py-24 md:py-32 bg-background overflow-hidden"
     >
-      {/* Background decorative elements */}
+      {/* Background decorative elements - Usar colores del tema */}
       <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
       <div className="absolute -top-40 -left-40 w-80 h-80 rounded-full bg-primary/5 blur-3xl"></div>
       <div className="absolute -bottom-40 -right-40 w-80 h-80 rounded-full bg-secondary/5 blur-3xl"></div>
@@ -68,7 +68,7 @@ export default function About() {
               initial={{ opacity: 0, y: 20 }}
               animate={isHeadingInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, ease: [0.165, 0.84, 0.44, 1] }}
-              className="text-3xl md:text-4xl font-bold mb-6"
+              className="text-3xl md:text-4xl font-bold mb-8 text-foreground"
             >
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
                 Quiénes Somos
@@ -82,16 +82,13 @@ export default function About() {
               transition={{ duration: 0.6, delay: 0.2, ease: [0.165, 0.84, 0.44, 1] }}
             >
               <p className="text-lg text-foreground/80 mb-6">
-                DevGenius es la agencia de desarrollo líder en Latinoamérica desde 2018. Creamos soluciones digitales innovadoras que 
-                transforman negocios y cautivan usuarios.
+                En Alets, no solo creamos software, construimos el futuro digital de Latinoamérica. Somos la agencia líder que transforma ideas audaces en soluciones tecnológicas robustas y escalables.
               </p>
               <p className="text-lg text-foreground/80 mb-6">
-                Nuestro equipo multidisciplinario formado por desarrolladores, diseñadores y estrategas 
-                digitales, trabaja para convertir ideas complejas en experiencias digitales excepcionales.
+                Nuestro equipo está formado por los ingenieros, diseñadores y estrategas más talentosos de la región, unidos por la pasión de superar los límites de la innovación y entregar resultados excepcionales.
               </p>
               <p className="text-lg text-foreground/80">
-                Combinamos un profundo conocimiento técnico con una comprensión intuitiva del diseño y las necesidades del usuario 
-                para crear productos que no solo funcionan de manera impecable, sino que también inspiran y deleitan.
+                Fusionamos la excelencia técnica con un diseño intuitivo y estratégico, creando productos digitales que no solo funcionan a la perfección, sino que definen el estándar de la industria e impulsan el crecimiento de nuestros clientes.
               </p>
               
               <div className="mt-8 flex items-center space-x-4">
@@ -120,7 +117,7 @@ export default function About() {
               <div className="relative w-full aspect-[4/3] bg-gradient-to-tr from-primary/10 to-secondary/10 rounded-2xl overflow-hidden border border-white/10">
                 {/* Imagen placeholder - reemplazar por imagen real */}
                 <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/20 to-secondary/20">
-                  <p className="text-center text-white/70 text-lg">Equipo DevGenius</p>
+                  <p className="text-center text-white/70 text-lg">Equipo Alets</p>
                 </div>
               </div>
             </div>
