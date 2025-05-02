@@ -2,7 +2,6 @@
 
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import Link from 'next/link'
 
 export default function Hero() {
   const sectionRef = useRef<HTMLDivElement>(null)

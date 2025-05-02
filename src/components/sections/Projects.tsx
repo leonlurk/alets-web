@@ -66,8 +66,8 @@ export default function Projects() {
       // Configuración para todas las pantallas (para limpieza)
       isAll: `(min-width: 0px)` 
     }, (context) => {
-      // Extraer las condiciones del contexto
-      let { isDesktop } = context.conditions as { isDesktop: boolean };
+      // Extraer las condiciones del contexto - usar const
+      const { isDesktop } = context.conditions as { isDesktop: boolean };
 
       const projectItems = gsap.utils.toArray('.project-item')
       const progressBar = document.querySelector('.progress-bar')
