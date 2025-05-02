@@ -1,133 +1,94 @@
 'use client'
 
-import { useRef, useEffect } from 'react'
-import { motion } from 'framer-motion'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import Link from 'next/link'
-import SpaceModel from '@/components/animations/SpaceModel'
-
-gsap.registerPlugin(ScrollTrigger)
 
 export default function Hero() {
   const sectionRef = useRef<HTMLDivElement>(null)
   const textRef = useRef<HTMLDivElement>(null)
-  const headingRef = useRef<HTMLHeadingElement>(null)
   
-  useEffect(() => {
-    const section = sectionRef.current
-    const text = textRef.current
-    const heading = headingRef.current
-    
-    if (section && text && heading) {
-      // Parallax effect for hero section
-      gsap.fromTo(
-        section,
-        { backgroundPosition: '50% 0%' },
-        {
-          backgroundPosition: '50% 100%',
-          ease: 'none',
-          scrollTrigger: {
-            trigger: section,
-            start: 'top top',
-            end: 'bottom top',
-            scrub: true,
-          },
-        }
-      )
-      
-      // Text animation on scroll
-      gsap.fromTo(
-        heading,
-        { y: 0 },
-        {
-          y: -100,
-          opacity: 0,
-          ease: 'power2.inOut',
-          scrollTrigger: {
-            trigger: section,
-            start: 'top top',
-            end: '25% top',
-            scrub: true,
-          },
-        }
-      )
-    }
-  }, [])
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"]
+  });
+
+  const titleY = useTransform(scrollYProgress, [0, 0.5], [0, -100]);
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
     <section 
       ref={sectionRef}
-      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[url('/images/stars-bg.jpg')] bg-cover"
+      className="relative min-h-screen w-full flex items-center justify-center cyberpunk-hero-bg"
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/50 to-background z-0"></div>
-      
       {/* Animated spotlight effect */}
-      <div className="pointer-events-none absolute inset-0 z-10 overflow-hidden">
-        <div className="animate-spotlight absolute -left-1/2 -top-1/2 h-[200%] w-[200%] bg-gradient-to-r from-primary/5 via-primary/25 to-primary/5 opacity-0"></div>
-      </div>
+      {/* <div className="pointer-events-none absolute inset-0 z-10 overflow-hidden"> */}
+      {/*   <div className="animate-spotlight absolute -left-1/2 -top-1/2 h-[200%] w-[200%] bg-gradient-to-r from-primary/5 via-primary/25 to-primary/5 opacity-0"></div> */}
+      {/* </div> */}
       
       <div 
         ref={textRef}
-        className="container relative z-10 mx-auto px-4 py-32 sm:py-48 lg:py-56 text-center"
+        className="container relative z-10 mx-auto px-4 py-16 text-center"
       >
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.165, 0.84, 0.44, 1] }}
         >
-          <h1 
-            ref={headingRef}
-            className="tracking-tight max-w-4xl mx-auto"
+          <motion.h1 
+            className="tracking-tight mx-auto overflow-visible"
+            style={{ y: titleY, opacity: titleOpacity }}
           >
-            <span className="block text-4xl font-bold text-foreground/80 mb-4">
+            <span className="block text-4xl font-bold text-muted-foreground mb-4">
               Transformamos Ideas En
             </span>
-            <span className="block text-7xl sm:text-8xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-primary via-secondary to-accent glow-text">
+            <span className="block text-7xl sm:text-7xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-primary via-secondary to-accent display-block py-1 mb-1 !overflow-visible">
               Experiencias Digitales
             </span>
-          </h1>
+          </motion.h1>
           
-          <p className="mt-8 text-xl text-foreground/70 max-w-2xl mx-auto">
+          <p className="mt-8 text-xl text-muted-foreground max-w-2xl mx-auto">
             Somos la agencia de desarrollo líder en Latinoamérica. Creamos soluciones digitales 
             innovadoras que transforman negocios y cautivan usuarios.
           </p>
           
+          {/* Cyberpunk Buttons */}
           <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6">
-            <Link 
+            <motion.a // Use motion.a for animation
               href="#contact"
-              className="px-8 py-3 bg-primary rounded-full text-white font-medium hover:bg-primary/90 transition-colors cosmic-glow"
+              whileHover={{ scale: 1.05, boxShadow: '0 0 20px hsl(var(--primary))' }}
+              whileTap={{ scale: 0.95 }}
+              className="px-8 py-3 bg-primary text-primary-foreground hover:text-primary-foreground font-semibold rounded-sm border-2 border-primary hover:bg-primary/90 transition-all duration-300 shadow-md shadow-primary/30"
+              style={{ clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%)' }} // Angled corner
             >
               Inicia tu proyecto
-            </Link>
-            <Link 
+            </motion.a>
+            <motion.a // Use motion.a for animation
               href="#services"
-              className="px-8 py-3 bg-background border border-border rounded-full text-foreground/90 font-medium hover:bg-muted/20 transition-colors"
+              whileHover={{ scale: 1.05, boxShadow: '0 0 15px hsl(var(--border))' }}
+              whileTap={{ scale: 0.95 }}
+              className="px-8 py-3 bg-transparent border-2 border-border text-muted-foreground font-medium rounded-sm hover:border-primary hover:text-primary hover:shadow-md hover:shadow-primary/30 transition-all duration-300"
+              style={{ clipPath: 'polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px)' }} // Angled corner opposite
             >
-              Descubre nuestros servicios
-            </Link>
+              Descubre servicios
+            </motion.a>
           </div>
           
           <div className="mt-16 flex items-center justify-center gap-8 text-foreground/50">
             <div className="text-center">
-              <p className="text-3xl font-bold text-foreground">300+</p>
-              <p className="text-sm">Proyectos</p>
+              <p className="text-4xl font-bold text-primary">300+</p>
+              <p className="text-sm uppercase tracking-wider">Proyectos</p>
             </div>
             <div className="text-center">
-              <p className="text-3xl font-bold text-foreground">99%</p>
-              <p className="text-sm">Satisfacción</p>
+              <p className="text-4xl font-bold text-primary">99%</p>
+              <p className="text-sm uppercase tracking-wider">Satisfacción</p>
             </div>
             <div className="text-center">
-              <p className="text-3xl font-bold text-foreground">24/7</p>
-              <p className="text-sm">Soporte</p>
+              <p className="text-4xl font-bold text-primary">24/7</p>
+              <p className="text-sm uppercase tracking-wider">Soporte</p>
             </div>
           </div>
         </motion.div>
-      </div>
-      
-      {/* 3D Space Model */}
-      <div className="absolute inset-0 z-[5] pointer-events-none">
-        <SpaceModel />
       </div>
       
       {/* Scroll indicator */}

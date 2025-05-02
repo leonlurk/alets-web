@@ -53,13 +53,8 @@ export default function About() {
     <section 
       id="about"
       ref={sectionRef}
-      className="relative py-24 md:py-32 bg-background overflow-hidden"
+      className="relative"
     >
-      {/* Background decorative elements - Usar colores del tema */}
-      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
-      <div className="absolute -top-40 -left-40 w-80 h-80 rounded-full bg-primary/5 blur-3xl"></div>
-      <div className="absolute -bottom-40 -right-40 w-80 h-80 rounded-full bg-secondary/5 blur-3xl"></div>
-      
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div>
@@ -94,13 +89,13 @@ export default function About() {
               <div className="mt-8 flex items-center space-x-4">
                 <div className="flex -space-x-2">
                   {[1, 2, 3, 4].map((i) => (
-                    <div key={i} className="w-10 h-10 rounded-full border-2 border-background overflow-hidden">
-                      <div className="w-full h-full bg-gradient-to-br from-primary/80 to-secondary/80"></div>
+                    <div key={i} className="w-10 h-10 rounded-full border-2 border-background bg-muted/70 flex items-center justify-center overflow-hidden">
+                      <div className="w-3 h-3 rounded-full bg-primary/50"></div>
                     </div>
                   ))}
                 </div>
-                <p className="text-sm text-foreground/70">
-                  <span className="font-semibold">+40 profesionales</span> trabajando en todo Latinoamérica
+                <p className="text-sm text-muted-foreground">
+                  <span className="font-semibold text-foreground/80">+40 profesionales</span> trabajando en LATAM
                 </p>
               </div>
             </motion.div>
@@ -113,65 +108,63 @@ export default function About() {
             transition={{ duration: 0.8, ease: [0.165, 0.84, 0.44, 1] }}
             className="relative perspective"
           >
-            <div className="w-full h-full rounded-2xl overflow-hidden cosmic-glow">
-              <div className="relative w-full aspect-[4/3] bg-gradient-to-tr from-primary/10 to-secondary/10 rounded-2xl overflow-hidden border border-white/10">
-                {/* Imagen placeholder - reemplazar por imagen real */}
-                <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/20 to-secondary/20">
-                  <p className="text-center text-white/70 text-lg">Equipo Alets</p>
+            <div className="w-full h-full rounded-md overflow-hidden shadow-lg shadow-secondary/10">
+              <div className="relative w-full aspect-[4/3] bg-card rounded-md overflow-hidden border border-border">
+                <div className="absolute inset-0 flex items-center justify-center 
+                                  bg-[linear-gradient(hsl(var(--primary)/0.03)_1px,transparent_1px),linear-gradient(to_right,hsl(var(--primary)/0.03)_1px,hsl(var(--card))_1px)] 
+                                  bg-[size:20px_20px]">
+                  <p className="text-center text-muted-foreground text-lg font-semibold">Equipo Alets</p>
                 </div>
               </div>
             </div>
             
-            {/* Floating elements */}
             <motion.div 
               animate={{ y: [0, -10, 0] }}
               transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-              className="absolute -top-8 -right-8 w-24 h-24 rounded-xl bg-gradient-to-br from-primary to-purple-800 opacity-90 shadow-lg"
+              className="absolute -top-8 -right-8 w-24 h-24 rounded-md bg-secondary/80 backdrop-blur-sm border border-white/10 shadow-lg p-2"
+              style={{ clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%)' }}
             >
-              <div className="w-full h-full flex items-center justify-center text-white font-bold">
-                5+ Años
+              <div className="w-full h-full flex items-center justify-center text-center text-secondary-foreground font-bold">
+                5+ Años Exp.
               </div>
             </motion.div>
             
             <motion.div 
               animate={{ y: [0, 10, 0] }}
               transition={{ repeat: Infinity, duration: 4, ease: "easeInOut", delay: 0.5 }}
-              className="absolute -bottom-6 -left-6 w-20 h-20 rounded-full bg-gradient-to-br from-secondary to-blue-700 opacity-90 shadow-lg"
+              className="absolute -bottom-6 -left-6 w-20 h-20 rounded-md bg-muted/80 backdrop-blur-sm border border-white/10 shadow-lg p-2"
+              style={{ clipPath: 'polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px)' }}
             >
-              <div className="w-full h-full flex items-center justify-center text-white font-bold">
-                300+
+              <div className="w-full h-full flex items-center justify-center text-center text-foreground font-bold">
+                300+ Proyectos
               </div>
             </motion.div>
           </motion.div>
         </div>
         
-        {/* Stats Section */}
         <motion.div 
           ref={statsRef}
           initial={{ opacity: 0 }}
           animate={isStatsInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-24 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          className="mt-24 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
         >
-          <div className="stat-item p-6 bg-background border border-border/50 rounded-xl hover:border-primary/50 transition-colors duration-300">
-            <div className="text-4xl font-bold text-primary mb-2">300+</div>
-            <div className="text-foreground/60">Proyectos Completados</div>
-          </div>
-          
-          <div className="stat-item p-6 bg-background border border-border/50 rounded-xl hover:border-primary/50 transition-colors duration-300">
-            <div className="text-4xl font-bold text-primary mb-2">40+</div>
-            <div className="text-foreground/60">Profesionales Expertos</div>
-          </div>
-          
-          <div className="stat-item p-6 bg-background border border-border/50 rounded-xl hover:border-primary/50 transition-colors duration-300">
-            <div className="text-4xl font-bold text-primary mb-2">12</div>
-            <div className="text-foreground/60">Países</div>
-          </div>
-          
-          <div className="stat-item p-6 bg-background border border-border/50 rounded-xl hover:border-primary/50 transition-colors duration-300">
-            <div className="text-4xl font-bold text-primary mb-2">98%</div>
-            <div className="text-foreground/60">Clientes Satisfechos</div>
-          </div>
+          {[
+            { value: "300+", label: "Proyectos Completados" },
+            { value: "40+", label: "Profesionales Expertos" },
+            { value: "12", label: "Países" },
+            { value: "98%", label: "Clientes Satisfechos" }
+          ].map((stat, index) => (
+             <motion.div 
+               key={index}
+               className="stat-item p-6 bg-card border border-border rounded-md transition-all duration-300 hover:border-primary hover:shadow-lg hover:shadow-primary/30"
+               whileHover={{ y: -5, transition: { duration: 0.2 } }}
+               style={{ clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%)' }}
+             >
+               <div className="text-4xl font-bold text-primary mb-2">{stat.value}</div>
+               <div className="text-muted-foreground text-sm">{stat.label}</div>
+             </motion.div>
+           ))}
         </motion.div>
       </div>
     </section>

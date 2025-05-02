@@ -53,11 +53,27 @@ export default function Projects() {
     const section = sectionRef.current
     const projectsContainer = projectsContainerRef.current
     
-    if (section && projectsContainer) {
-      // Horizontal scroll para proyectos
+    if (!section || !projectsContainer) return; // Salir si las refs no están listas
+
+    // Usar matchMedia para animaciones responsivas
+    const mm = gsap.matchMedia();
+
+    mm.add({
+      // Configuración para pantallas grandes (>= 768px)
+      isDesktop: `(min-width: 768px)`,
+      // Configuración para pantallas pequeñas (< 768px)
+      isMobile: `(max-width: 767px)`,
+      // Configuración para todas las pantallas (para limpieza)
+      isAll: `(min-width: 0px)` 
+    }, (context) => {
+      // Extraer las condiciones del contexto
+      let { isDesktop } = context.conditions as { isDesktop: boolean };
+
       const projectItems = gsap.utils.toArray('.project-item')
-      
-      if (window.innerWidth >= 768) { // Solo en desktop
+      const progressBar = document.querySelector('.progress-bar')
+
+      if (isDesktop) {
+        // --- Animación Scroll Horizontal (Solo Escritorio) ---
         gsap.to(projectItems, {
           xPercent: -100 * (projectItems.length - 1),
           ease: "none",
@@ -66,33 +82,65 @@ export default function Projects() {
             pin: true,
             scrub: 1,
             start: "top top",
-            end: () => `+=${projectsContainer.offsetWidth * 1.5}`,
+            end: () => `+=${projectsContainer.offsetWidth * (projectItems.length - 0.5)}`, // Ajuste potencial al end
+            invalidateOnRefresh: true // Ayuda a recalcular en resize
           }
-        })
+        });
+
+        // --- Animación Barra Progreso (Escritorio, misma duración que scroll horizontal) ---
+        if (progressBar) {
+          gsap.to(progressBar, {
+            width: '100%',
+            ease: 'none',
+            scrollTrigger: {
+              trigger: projectsContainer,
+              scrub: 0.3,
+              start: 'top top',
+              end: () => `+=${projectsContainer.offsetWidth * (projectItems.length - 0.5)}`, // Ajuste potencial al end
+            }
+          });
+        }
+      } else {
+        // --- Animación Barra Progreso (Móvil, basada en altura total) ---
+        // En móvil, no hay pin ni scroll horizontal, así que la barra 
+        // debería progresar mientras toda la sección vertical es visible.
+        if (progressBar) {
+           gsap.to(progressBar, {
+            width: '100%',
+            ease: 'none',
+            scrollTrigger: {
+              trigger: projectsContainer, // O quizás 'sectionRef.current' si es más apropiado
+              scrub: 0.3,
+              start: 'top center+=100', // Empezar un poco después
+              end: 'bottom bottom-=100' // Terminar un poco antes
+            }
+          });
+        }
+        // No aplicamos scroll horizontal ni pin en móvil
       }
-      
-      // Animación de progreso al hacer scroll
-      const progressBar = document.querySelector('.progress-bar')
-      if (progressBar) {
-        gsap.to(progressBar, {
-          width: '100%',
-          ease: 'none',
-          scrollTrigger: {
-            trigger: projectsContainer,
-            scrub: 0.3,
-            start: 'top top',
-            end: () => `+=${projectsContainer.offsetWidth * 1.5}`,
-          }
-        })
-      }
-    }
-  }, [])
+
+      // Devolver una función de limpieza para este contexto
+      // matchMedia se encarga de llamarla cuando las condiciones cambian
+      return () => {
+        // Esto mata TODAS las animaciones y ScrollTriggers creados DENTRO de este contexto
+        gsap.killTweensOf(projectItems);
+        gsap.killTweensOf(progressBar);
+        // ScrollTrigger.killAll() es muy agresivo, es mejor dejar que matchMedia limpie
+        // o matar triggers específicos si fuera necesario, pero mm.revert() lo hace.
+      };
+    });
+
+    // Devolver una función de limpieza general para el useEffect (desmontar componente)
+    return () => {
+      mm.revert(); // Limpia todas las animaciones y listeners de matchMedia
+    };
+  }, []) // Dependencias vacías aún están bien porque matchMedia maneja los cambios
 
   return (
     <section 
       id="projects" 
       ref={sectionRef}
-      className="relative py-24 md:py-32 bg-background"
+      className="relative"
     >
       <div className="container mx-auto px-4">
         <motion.div
@@ -111,41 +159,42 @@ export default function Projects() {
           </p>
         </motion.div>
         
-        <div className="relative mb-8">
+        <div className="relative mb-8 md:mb-0">
           <div className="w-full h-1 bg-muted rounded-full overflow-hidden">
             <div className="progress-bar h-full bg-gradient-to-r from-primary to-secondary w-0"></div>
           </div>
         </div>
       </div>
       
-      {/* Proyectos con scroll horizontal en desktop */}
       <div 
         ref={projectsContainerRef}
-        className="relative min-h-[50vh] md:min-h-[80vh] w-full"
+        className="relative min-h-[50vh] md:h-[80vh] w-full overflow-hidden"
       >
-        <div className="flex flex-col md:flex-row w-full md:w-[400%]">
+        <div className="flex flex-col md:flex-row w-full h-full">
           {projects.map((project) => (
             <div 
               key={project.id}
-              className="project-item flex-shrink-0 w-full md:w-screen h-auto md:h-[80vh] px-4 py-8 md:py-0 md:px-0 flex items-center"
+              className="project-item flex-shrink-0 w-full md:w-full h-auto md:h-full py-12 px-6 md:py-0 md:px-16 flex items-center"
             >
               <motion.div 
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.1 }}
                 viewport={{ once: true, amount: 0.3 }}
-                className="w-full max-w-6xl mx-auto h-full flex flex-col md:flex-row items-center gap-8 md:gap-16"
+                className="w-full max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-12"
               >
-                <div className="w-full md:w-1/2 h-64 md:h-3/4">
-                  <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-lg shadow-primary/10">
-                    <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/10 to-secondary/10 border border-border rounded-2xl">
-                      <span className="text-lg text-muted-foreground">Imagen de {project.title}</span>
+                <div className="w-full md:w-5/12 h-64 md:h-1/2 lg:h-2/3">
+                  <div className="relative w-full h-full rounded-md overflow-hidden shadow-lg shadow-secondary/10 border border-border">
+                    <div className="absolute inset-0 bg-card flex items-center justify-center 
+                                      bg-[linear-gradient(hsl(var(--secondary)/0.03)_1px,transparent_1px),linear-gradient(to_right,hsl(var(--secondary)/0.03)_1px,hsl(var(--card))_1px)] 
+                                      bg-[size:25px_25px]">
+                      <span className="text-lg text-muted-foreground font-semibold">{project.title}</span>
                     </div>
                   </div>
                 </div>
                 
-                <div className="w-full md:w-1/2 flex flex-col">
-                  <span className="text-sm font-medium text-primary mb-2">{project.category}</span>
+                <div className="w-full md:w-7/12 flex flex-col self-center md:self-auto">
+                  <span className="text-sm font-medium text-secondary mb-2">{project.category}</span>
                   <h3 className="text-2xl md:text-4xl font-bold mb-4 text-foreground">{project.title}</h3>
                   <p className="text-lg text-muted-foreground mb-6">{project.description}</p>
                   
@@ -153,7 +202,7 @@ export default function Projects() {
                     {project.tech.map((tech, idx) => (
                       <span 
                         key={idx}
-                        className="text-xs px-3 py-1 rounded-full bg-muted text-muted-foreground"
+                        className="text-xs px-2 py-1 rounded-sm bg-muted border border-border/50 text-muted-foreground"
                       >
                         {tech}
                       </span>
@@ -162,9 +211,10 @@ export default function Projects() {
                   
                   <div className="mt-auto">
                     <motion.button
-                      whileHover={{ scale: 1.05 }}
+                      whileHover={{ scale: 1.05, filter: 'brightness(1.2)' }}
                       whileTap={{ scale: 0.95 }}
-                      className="px-6 py-2 bg-primary/10 text-primary border border-primary/20 rounded-full hover:bg-primary/20 transition-colors"
+                      className="px-6 py-2 text-sm border border-primary text-primary rounded-sm hover:bg-primary/10 transition-colors duration-300"
+                      style={{ clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%)' }}
                     >
                       Ver proyecto
                     </motion.button>
@@ -179,9 +229,10 @@ export default function Projects() {
       <div className="container mx-auto px-4 mt-12 text-center">
         <motion.a
           href="#contact"
-          whileHover={{ scale: 1.05 }}
+          whileHover={{ scale: 1.05, filter: 'brightness(1.2)' }}
           whileTap={{ scale: 0.95 }}
-          className="inline-block px-8 py-3 bg-primary/10 border border-primary/20 rounded-full text-primary font-medium hover:bg-primary/20 transition-colors"
+          className="inline-block px-8 py-3 text-sm border border-primary text-primary rounded-sm hover:bg-primary/10 transition-colors duration-300 font-medium"
+          style={{ clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%)' }}
         >
           Ver todos los proyectos
         </motion.a>

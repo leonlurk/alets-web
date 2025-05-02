@@ -2,10 +2,7 @@
 
 import { useRef, useEffect, useState } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
+import { Quote, Star } from 'lucide-react'
 
 const testimonials = [
   {
@@ -51,43 +48,17 @@ export default function Testimonials() {
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveTestimonial((prev) => (prev + 1) % testimonials.length)
-    }, 5000)
+    }, 6000)
     
     return () => clearInterval(interval)
-  }, [])
-  
-  useEffect(() => {
-    const section = sectionRef.current
-    
-    if (section) {
-      // Animación de parallax para el fondo
-      gsap.fromTo(
-        '.testimonial-bg-gradient',
-        { y: '-20%' },
-        {
-          y: '20%',
-          ease: 'none',
-          scrollTrigger: {
-            trigger: section,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: true,
-          },
-        }
-      )
-    }
   }, [])
 
   return (
     <section 
       id="testimonials"
       ref={sectionRef}
-      className="relative py-24 md:py-32 overflow-hidden bg-background"
+      className="relative overflow-hidden"
     >
-      {/* Fondo dinámico */}
-      <div className="testimonial-bg-gradient absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/5 to-background"></div>
-      <div className="absolute inset-0 mask-radial-faded"></div>
-      
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
           ref={headingRef}
@@ -109,54 +80,43 @@ export default function Testimonials() {
           ref={testimonialsRef}
           className="max-w-4xl mx-auto mb-12"
         >
-          <div className="relative perspective bg-card/80 backdrop-blur-md rounded-2xl p-8 md:p-12 border border-border shadow-lg shadow-primary/10">
-            <div className="absolute top-4 right-4 flex">
+          <div 
+            className="relative perspective bg-card/80 backdrop-blur-md rounded-md p-8 md:p-12 border border-border shadow-lg shadow-secondary/10"
+            style={{ clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%)' }}
+          >
+            <div className="absolute top-4 right-4 flex space-x-1">
               {[...Array(5)].map((_, i) => (
-                <svg 
-                  key={i} 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  className="h-5 w-5 text-yellow-400" 
-                  viewBox="0 0 20 20" 
-                  fill="currentColor"
-                >
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
+                <Star key={i} className="h-5 w-5 text-secondary" fill="currentColor"/>
               ))}
             </div>
             
-            <div className="flex items-center justify-center h-[300px]">
+            <div className="flex items-center justify-center min-h-[250px]">
               <AnimatePresence mode="wait">
                 <motion.div 
                   key={activeTestimonial}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.5 }}
+                  initial={{ opacity: 0, filter: 'blur(5px)' }}
+                  animate={{ opacity: 1, filter: 'blur(0px)' }}
+                  exit={{ opacity: 0, filter: 'blur(5px)' }}
+                  transition={{ duration: 0.4 }}
                   className="text-center"
                 >
-                  <svg 
-                    className="mx-auto mb-6 text-primary/40 h-12 w-12" 
-                    fill="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                  </svg>
-                  <p className="text-lg md:text-xl mb-8 text-foreground">{testimonials[activeTestimonial].comment}</p>
+                  <Quote className="mx-auto mb-6 text-primary/50 h-12 w-12" strokeWidth={1.5}/>
+                  <p className="text-lg md:text-xl italic mb-8 text-foreground/90">{testimonials[activeTestimonial].comment}</p>
                   <div>
-                    <p className="font-bold text-foreground">{testimonials[activeTestimonial].name}</p>
+                    <p className="font-semibold text-foreground">{testimonials[activeTestimonial].name}</p>
                     <p className="text-muted-foreground text-sm">{testimonials[activeTestimonial].company}</p>
                   </div>
                 </motion.div>
               </AnimatePresence>
             </div>
             
-            <div className="flex justify-center mt-8 space-x-2">
+            <div className="flex justify-center mt-8 space-x-3">
               {testimonials.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setActiveTestimonial(index)}
-                  className={`w-3 h-3 rounded-full transition-colors duration-300 ${
-                    index === activeTestimonial ? 'bg-primary' : 'bg-muted'
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    index === activeTestimonial ? 'bg-primary scale-125' : 'bg-muted/50 hover:bg-muted'
                   }`}
                   aria-label={`Ver testimonio ${index + 1}`}
                 />
@@ -165,9 +125,9 @@ export default function Testimonials() {
           </div>
         </div>
         
-        <div className="flex flex-wrap justify-center gap-8 mt-16">
-          {['Microsoft', 'Google', 'Amazon', 'Meta', 'Netflix', 'Spotify'].map((brand, index) => (
-            <div key={index} className="text-muted-foreground font-medium text-lg">{brand}</div>
+        <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-4 mt-20 opacity-60">
+          {[ 'CLIENT 1', 'CLIENT 2', 'CLIENT 3', 'CLIENT 4', 'CLIENT 5', 'CLIENT 6' ].map((brand, index) => (
+            <span key={index} className="text-muted-foreground font-medium text-sm tracking-widest uppercase transition-opacity hover:opacity-80">{brand}</span>
           ))}
         </div>
       </div>

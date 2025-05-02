@@ -1,7 +1,8 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import SmoothScroll from '@/components/layout/SmoothScroll'
+// import SmoothScroll from '@/components/layout/SmoothScroll' // Removed old import
+import SmoothScrollWrapper from '@/components/layout/SmoothScrollWrapper' // Added new import
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -21,9 +22,11 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className={`${inter.variable} font-sans`}>
-        <SmoothScroll>
+        {/* <SmoothScroll> */}
+        <SmoothScrollWrapper>
           {children}
-        </SmoothScroll>
+        </SmoothScrollWrapper>
+        {/* </SmoothScroll> */}
       </body>
     </html>
   )
